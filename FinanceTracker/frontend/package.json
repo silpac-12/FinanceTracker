@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5259",
+  "dependencies": {
+    "firebase": "^11.0.1",
+    "react-scripts": "^3.0.1"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "scripts": {
+    "start": "live-server ./src"
+  }
+}

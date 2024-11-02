@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Firebase config
+firebase.json
+.firebaserc
+
+# Secrets directory and specific secret files
+secrets/
+secrets/*.json
+firebase-adminsdk.json
+
+# IDE and OS specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
