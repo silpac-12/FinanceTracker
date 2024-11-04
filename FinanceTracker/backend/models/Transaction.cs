@@ -14,5 +14,5 @@ public class Transaction
     public string Category { get; set; }
 
     [FirestoreProperty]
-    public DateTime Date { get; set; }
+    public String Date { get; set; }
 }

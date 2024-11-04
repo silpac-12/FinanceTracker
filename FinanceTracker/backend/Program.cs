@@ -20,6 +20,17 @@ if (FirebaseApp.DefaultInstance == null)
 // Register FirestoreDb as a singleton service for dependency injection
 builder.Services.AddSingleton(provider => FirestoreDb.Create("finance-tracker-9a9fa"));
 
+// Add CORS policy to allow requests from frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // Allow requests from the frontend
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Add controllers and other services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -32,10 +43,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
-app.UseDeveloperExceptionPage();
+
+// Apply the CORS policy before routing
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
 app.Run();

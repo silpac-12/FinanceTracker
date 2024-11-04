@@ -1,6 +1,7 @@
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\appsettings.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\firebase-adminsdk.json
+C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\frontend\package-lock.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\frontend\package.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\FinanceTracker.exe
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\bin\Debug\net8.0\secrets\finance-tracker-9a9fa-firebase-adminsdk-853s8-5a664a38a5.json
@@ -45,6 +46,7 @@ C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\Finan
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.csproj.CoreCompileInputs.cache
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\FinanceTracker.sourcelink.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\seanc\source\repos\FinanceTracker\FinanceTracker\obj\Debug\net8.0\staticwebassets\msbuild.FinanceTracker.Microsoft.AspNetCore.StaticWebAssets.props

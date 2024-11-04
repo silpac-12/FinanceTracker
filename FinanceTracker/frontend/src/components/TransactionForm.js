@@ -21,7 +21,7 @@ const TransactionForm = () => {
         e.preventDefault();
         // Make a POST request to your backend API
         try {
-            const response = await fetch('/api/transaction', {
+            const response = await fetch('http://localhost:5259/api/transaction', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -33,6 +33,7 @@ const TransactionForm = () => {
                 alert('Failed to add transaction');
             }
         } catch (error) {
+            console.log("Request failed");
             console.error('Error:', error);
         }
     };
