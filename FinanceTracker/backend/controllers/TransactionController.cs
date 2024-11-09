@@ -13,45 +13,21 @@ public class TransactionController : ControllerBase
     public TransactionController(FirestoreDb firestoreDb)
     {
         _firestoreDb = firestoreDb;
+        Console.WriteLine("FirestoreDb initialized in TransactionController.");
     }
 
-    // Get a specific transaction by ID
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetTransaction(string id)
-    {
-        Console.WriteLine($"Attempting to retrieve transaction with ID: {id}");
-        try
-        {
-            DocumentReference docRef = _firestoreDb.Collection("transactions").Document(id);
-            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-            if (snapshot.Exists)
-            {
-                var transaction = snapshot.ConvertTo<Transaction>();
-                Console.WriteLine("Transaction retrieved successfully.");
-                return Ok(transaction);
-            }
-            Console.WriteLine("Transaction not found.");
-            return NotFound();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error retrieving transaction: {ex.Message}");
-            return StatusCode(500, "Internal server error");
-        }
-    }
-
-    // Get all transactions
-    [HttpGet]
+    // Get all transactions (for testing purposes)
+    [HttpGet("all")]
     public async Task<IActionResult> GetAllTransactions()
     {
         Console.WriteLine("Attempting to retrieve all transactions.");
         try
         {
-            CollectionReference transactionsRef = _firestoreDb.Collection("transactions");
-            QuerySnapshot snapshot = await transactionsRef.GetSnapshotAsync();
+            var transactionsRef = _firestoreDb.Collection("transactions");
+            var snapshot = await transactionsRef.GetSnapshotAsync();
             var transactions = new List<Transaction>();
 
-            foreach (DocumentSnapshot doc in snapshot.Documents)
+            foreach (var doc in snapshot.Documents)
             {
                 if (doc.Exists)
                 {
@@ -59,7 +35,7 @@ public class TransactionController : ControllerBase
                 }
             }
 
-            Console.WriteLine("All transactions retrieved successfully.");
+            Console.WriteLine($"All transactions retrieved. Count: {transactions.Count}");
             return Ok(transactions);
         }
         catch (Exception ex)
@@ -69,21 +45,77 @@ public class TransactionController : ControllerBase
         }
     }
 
-    // Create a new transaction
-    [HttpPost]
-    public async Task<IActionResult> CreateTransaction([FromBody] Transaction transaction)
+    // Get transactions for a specific user
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetUserTransactions(string userId)
     {
-        Console.WriteLine("Received transaction:");
-        Console.WriteLine($"Description: {transaction.Description}");
-        Console.WriteLine($"Amount: {transaction.Amount}");
-        Console.WriteLine($"Category: {transaction.Category}");
-        Console.WriteLine($"Date: {transaction.Date}");
+        Console.WriteLine($"Attempting to retrieve transactions for User ID: {userId}");
 
         try
         {
+            if (string.IsNullOrEmpty(userId))
+            {
+                Console.WriteLine("User ID is missing.");
+                return BadRequest("User ID is required.");
+            }
+
+            CollectionReference transactionsRef = _firestoreDb.Collection("transactions");
+            Query query = transactionsRef.WhereEqualTo("UserId", userId);
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+
+            Console.WriteLine($"Query executed. Document count: {snapshot.Documents.Count}");
+
+            var transactions = new List<Transaction>();
+
+            foreach (DocumentSnapshot doc in snapshot.Documents)
+            {
+                if (doc.Exists)
+                {
+                    var transaction = doc.ConvertTo<Transaction>();
+                    Console.WriteLine($"Transaction found: {transaction.Description}, Date: {transaction.Date}");
+                    transactions.Add(transaction);
+                }
+            }
+
+            if (transactions.Count == 0)
+            {
+                Console.WriteLine("No transactions found for the user.");
+            }
+
+            return Ok(transactions);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving transactions for user {userId}: {ex.Message}");
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> CreateTransaction([FromBody] Transaction transaction)
+    {
+        Console.WriteLine("Received POST request");
+        try
+        {
+            // Log the received data
+            Console.WriteLine($"Description: {transaction.Description}");
+            Console.WriteLine($"Amount: {transaction.Amount}");
+            Console.WriteLine($"Category: {transaction.Category}");
+            Console.WriteLine($"UserId: {transaction.UserId}");
+            Console.WriteLine($"Date: {transaction.Date}");
+
+            // If no date is provided, set the current date and time as a string
+            if (string.IsNullOrEmpty(transaction.Date))
+            {
+                transaction.Date = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+
+            // Write the transaction directly to Firestore
             DocumentReference docRef = await _firestoreDb.Collection("transactions").AddAsync(transaction);
-            Console.WriteLine("Transaction created successfully with ID: " + docRef.Id);
-            return CreatedAtAction(nameof(GetTransaction), new { id = docRef.Id }, transaction);
+            Console.WriteLine("Transaction written to Firestore with ID: " + docRef.Id);
+
+            return Ok(new { id = docRef.Id });
         }
         catch (Exception ex)
         {
@@ -91,4 +123,5 @@ public class TransactionController : ControllerBase
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
+
 }

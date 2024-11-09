@@ -1,13 +1,18 @@
 ﻿using Google.Cloud.Firestore;
+using System;
 
-namespace FinanceTracker.backend.models
+namespace FinanceTracker.Models
 {
+    [FirestoreData]
     public class User
     {
         [FirestoreProperty]
-        public string email {  get; set; }
+        public string Email { get; set; }
 
         [FirestoreProperty]
-        public string name { get; set; }
+        public string PasswordHash { get; set; } // Store hashed passwords for security
+
+        [FirestoreProperty]
+        public string Name { get; set; }
     }
 }

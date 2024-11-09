@@ -1,28 +1,77 @@
-﻿/* src/styles.css */
-body {
-    font-family: Arial, sans-serif;
+﻿body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-.app {
+.container {
+    width: 90%;
     max-width: 800px;
-    margin: auto;
+    background-color: #ffffff;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
     text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-form {
-    margin: 20px 0;
+.transaction-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-    form input,
-    form button {
-        margin: 5px;
-        padding: 10px;
+    .transaction-form input,
+    .transaction-form button {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
     }
 
-.transaction-list {
-    text-align: left;
+        .transaction-form input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+    .transaction-form button {
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .transaction-form button:hover {
+            background-color: #0056b3;
+        }
+
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
+.transaction-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .transaction-card h3 {
+        margin-top: 0;
+    }
+
+    .transaction-card p {
+        margin: 5px 0;
+    }

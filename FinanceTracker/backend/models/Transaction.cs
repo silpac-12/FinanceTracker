@@ -15,4 +15,7 @@ public class Transaction
 
     [FirestoreProperty]
     public String Date { get; set; }
+
+    [FirestoreProperty]
+    public string UserId { get; set; }
 }
