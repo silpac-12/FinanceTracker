@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5259",
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "chart.js": "^4.4.7",
     "firebase": "^11.0.1",
     "react": "^18.0.0",

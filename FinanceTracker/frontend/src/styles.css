@@ -75,3 +75,35 @@ h1 {
     .transaction-card p {
         margin: 5px 0;
     }
+
+
+/* Light Mode (default) */
+.transaction-card {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark Mode */
+body.dark-mode .transaction-card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+
+/* Default light mode */
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+    /* Dark mode */
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+/* Ensure specific elements, like headings, are styled */
+h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+}
+
